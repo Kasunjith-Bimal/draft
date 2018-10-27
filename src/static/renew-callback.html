@@ -12,10 +12,8 @@
 <body>
   <script src="oidc-client.min.js"></script>
   <script>
-    var config = {
-      userStore: new Oidc.WebStorageStateStore({ store: window.localStorage })
-    }
-    new Oidc.UserManager(config).signinSilentCallback().catch(function (e) {
+    var Oidc = window.Oidc;
+    new Oidc.UserManager().signinSilentCallback().catch(function (e) {
       console.error(e);
     });
   </script>
