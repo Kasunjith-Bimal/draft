@@ -10,6 +10,8 @@ import { ProtectedComponent } from './protected/protected.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './providers/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './providers/token-interceptor.service';
 
 const routes: Routes = [
   {
@@ -39,6 +41,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
@@ -55,7 +58,14 @@ const routes: Routes = [
       }
     })
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
