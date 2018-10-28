@@ -19,8 +19,8 @@
     if (isPopupCallback) {
       new Oidc.UserManager().signinPopupCallback();
     } else {
-      new Oidc.UserManager().signinRedirectCallback().then(t => {
-        window.location.href = '/';
+      new Oidc.UserManager().signinRedirectCallback().then(user => {
+        window.location.href = user.state.redirect_url || '/';
       });
     }
   </script>

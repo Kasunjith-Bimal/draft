@@ -1,10 +1,6 @@
-<div (click)="signinRedirect()">
-  Signin Redirect
-</div>
+<button routerLink="/">Home</button>
+<button routerLink="/protected">Protected</button>
+&nbsp;
+<button (click)="signoutRedirect()">Signout</button>
 
-<pre>{{identity$ | async | json}}</pre>
-
-<div (click)="signoutRedirect()">
-  Signout
-</div>
 <router-outlet></router-outlet>

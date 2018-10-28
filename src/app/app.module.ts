@@ -5,12 +5,41 @@ import { StoreModule } from '@ngrx/store';
 import { NgOidcClientModule } from 'ng-oidc-client';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { ProtectedComponent } from './protected/protected.component';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './providers/auth.guard';
+import { LoginComponent } from './login/login.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: HomeComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'protected',
+    component: ProtectedComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ProtectedComponent,
+    LoginComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule.forRoot(routes),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     NgOidcClientModule.forRoot({
@@ -26,7 +55,7 @@ import { AppComponent } from './app.component';
       }
     })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

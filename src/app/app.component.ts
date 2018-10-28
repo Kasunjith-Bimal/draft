@@ -20,10 +20,6 @@ export class AppComponent implements OnInit {
     this.oidcFacade.getOidcUser();
   }
 
-  signinRedirect() {
-    this.oidcFacade.signinRedirect();
-  }
-
   signoutRedirect() {
     this.oidcFacade.signoutRedirect();
   }
